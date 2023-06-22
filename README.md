@@ -16,4 +16,3 @@ This is a practice project which deploys a new Windows VM, opens RDP port and ou
 5. Run `terraform apply -auto-approve` to deploy the VM
 6. Run `terraform output demo_instance_public_ip` to get the public IP of the VM
 7. To destroy the VM, run `terraform destroy -auto-approve`
-
