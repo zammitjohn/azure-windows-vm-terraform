@@ -25,12 +25,30 @@ resource "azurerm_virtual_machine" "demo-instance" {
     computer_name  = var.hostname
     admin_username = var.username
     admin_password = var.password
+    custom_data    = file("./files/winrm.ps1")
   }
 
   os_profile_windows_config {
+    provision_vm_agent = true
+    winrm {
+      protocol = "HTTP"
+    }
+    # Auto-Login's required to configure WinRM
+    additional_unattend_config {
+      pass         = "oobeSystem"
+      component    = "Microsoft-Windows-Shell-Setup"
+      setting_name = "AutoLogon"
+      content      = "<AutoLogon><Password><Value>${var.password}</Value></Password><Enabled>true</Enabled><LogonCount>1</LogonCount><Username>${var.username}</Username></AutoLogon>"
+    }
 
+    # Unattend config is to enable basic auth in WinRM, required for the provisioner stage.
+    additional_unattend_config {
+      pass         = "oobeSystem"
+      component    = "Microsoft-Windows-Shell-Setup"
+      setting_name = "FirstLogonCommands"
+      content      = file("./files/FirstLogonCommands.xml")
+    }
   }
-
 }
 
 resource "azurerm_network_interface" "demo-instance" {

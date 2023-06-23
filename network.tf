@@ -30,7 +30,7 @@ resource "azurerm_network_security_group" "allow-remoting" {
     destination_address_prefix = "*"
   }
   security_rule {
-    name                       = "WinRM_HTTP"
+    name                       = "WinRM"
     priority                   = 1002
     direction                  = "Inbound"
     access                     = "Allow"
@@ -40,15 +40,5 @@ resource "azurerm_network_security_group" "allow-remoting" {
     source_address_prefix      = var.remoting-source-address
     destination_address_prefix = "*"
   }
-  security_rule {
-    name                       = "WinRM_HTTPS"
-    priority                   = 1003
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "5986"
-    source_address_prefix      = var.remoting-source-address
-    destination_address_prefix = "*"
-  }
+
 }
