@@ -1,2 +1,2 @@
-location           = "westeurope"
+location                = "westeurope"
 remoting-source-address = "*"

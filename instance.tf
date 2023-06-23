@@ -3,14 +3,14 @@ resource "azurerm_virtual_machine" "demo-instance" {
   location                         = var.location
   resource_group_name              = azurerm_resource_group.demo.name
   network_interface_ids            = [azurerm_network_interface.demo-instance.id]
-  vm_size                          = "Standard_A1_v2"
+  vm_size                          = "Standard_DS1_v2"
   delete_data_disks_on_termination = true
   delete_os_disk_on_termination    = true
 
   storage_image_reference {
-    publisher = "MicrosoftWindowsServer"
-    offer     = "WindowsServer"
-    sku       = "2016-Datacenter"
+    publisher = "MicrosoftWindowsDesktop"
+    offer     = "windows-11"
+    sku       = "win11-21h2-pro"
     version   = "latest"
   }
 
