@@ -13,8 +13,8 @@ resource "azurerm_subnet" "demo-internal-1" {
   address_prefixes     = ["10.0.0.0/24"]
 }
 
-resource "azurerm_network_security_group" "allow-rdp" {
-  name                = "${var.prefix}-allow-rdp"
+resource "azurerm_network_security_group" "allow-remoting" {
+  name                = "${var.prefix}-allow-remoting"
   location            = var.location
   resource_group_name = azurerm_resource_group.demo.name
 
@@ -26,7 +26,29 @@ resource "azurerm_network_security_group" "allow-rdp" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "3389"
-    source_address_prefix      = var.rdp-source-address
+    source_address_prefix      = var.remoting-source-address
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "WinRM_HTTP"
+    priority                   = 1002
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "5985"
+    source_address_prefix      = var.remoting-source-address
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "WinRM_HTTPS"
+    priority                   = 1003
+    direction                  = "Inbound"
+    access                     = "Allow"
+    protocol                   = "Tcp"
+    source_port_range          = "*"
+    destination_port_range     = "5986"
+    source_address_prefix      = var.remoting-source-address
     destination_address_prefix = "*"
   }
 }

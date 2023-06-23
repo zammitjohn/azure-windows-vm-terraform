@@ -1,2 +1,2 @@
 location           = "westeurope"
-rdp-source-address = "*"
+remoting-source-address = "*"

@@ -48,7 +48,7 @@ resource "azurerm_network_interface" "demo-instance" {
 
 resource "azurerm_network_interface_security_group_association" "demo-instance" {
   network_interface_id      = azurerm_network_interface.demo-instance.id
-  network_security_group_id = azurerm_network_security_group.allow-rdp.id
+  network_security_group_id = azurerm_network_security_group.allow-remoting.id
 }
 
 resource "azurerm_public_ip" "demo-instance" {

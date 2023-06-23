@@ -1,6 +1,6 @@
 # windows-vm-terraform-practice
 
-This is a practice project which deploys a new Windows VM, opens RDP port and outputs the public IP using Terraform.
+This is a practice project which deploys a new Windows VM, opens RDP and WinRM ports and outputs the public IP using Terraform.
 
 ## Prerequisites
 

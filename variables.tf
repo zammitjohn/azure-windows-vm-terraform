@@ -7,7 +7,7 @@ variable "prefix" {
   default = "practice-jz"
 }
 
-variable "rdp-source-address" {
+variable "remoting-source-address" {
   type    = string
   default = "*"
 }
