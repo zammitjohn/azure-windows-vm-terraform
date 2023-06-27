@@ -1,8 +1,8 @@
-resource "azurerm_virtual_machine" "demo-instance" {
+resource "azurerm_virtual_machine" "win-vm" {
   name                             = "${var.prefix}-vm"
   location                         = var.location
   resource_group_name              = azurerm_resource_group.demo.name
-  network_interface_ids            = [azurerm_network_interface.demo-instance.id]
+  network_interface_ids            = [azurerm_network_interface.win-vm.id]
   vm_size                          = "Standard_DS1_v2"
   delete_data_disks_on_termination = true
   delete_os_disk_on_termination    = true
@@ -51,7 +51,7 @@ resource "azurerm_virtual_machine" "demo-instance" {
   }
 }
 
-resource "azurerm_network_interface" "demo-instance" {
+resource "azurerm_network_interface" "win-vm" {
   name                = "${var.prefix}-instance1"
   location            = var.location
   resource_group_name = azurerm_resource_group.demo.name
@@ -60,16 +60,16 @@ resource "azurerm_network_interface" "demo-instance" {
     name                          = "instance1"
     subnet_id                     = azurerm_subnet.demo-internal-1.id
     private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = azurerm_public_ip.demo-instance.id
+    public_ip_address_id          = azurerm_public_ip.win-vm.id
   }
 }
 
-resource "azurerm_network_interface_security_group_association" "demo-instance" {
-  network_interface_id      = azurerm_network_interface.demo-instance.id
+resource "azurerm_network_interface_security_group_association" "win-vm" {
+  network_interface_id      = azurerm_network_interface.win-vm.id
   network_security_group_id = azurerm_network_security_group.allow-remoting.id
 }
 
-resource "azurerm_public_ip" "demo-instance" {
+resource "azurerm_public_ip" "win-vm" {
   name                = "instance1-public-ip"
   location            = var.location
   resource_group_name = azurerm_resource_group.demo.name
